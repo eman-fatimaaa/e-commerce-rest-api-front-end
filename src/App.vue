@@ -9,6 +9,7 @@ import HelloWorld from './components/HelloWorld.vue'
         <router-link to="/">Home</router-link> |
         <router-link to="/login">Login</router-link> |
         <router-link to="/signup">Sign Up</router-link>
+        <h1 class="text-3xl font-bold text-blue-600">Tailwind is working!</h1>
       </nav>
     </header>
 
@@ -20,7 +21,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <p>&copy; 2025 My Vue SPA</p>
     </footer>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <!-- <HelloWorld msg="Vite + Vue" /> -->
 </template>
 
 <style scoped>
