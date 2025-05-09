@@ -59,8 +59,8 @@ async function handleSubmit() {
 
   // Prepare the API endpoint and payload
   const endpoint = isLoginMode.value 
-    ? 'https://ecommerce-rest-api-miv1.onrender.com/login'  // Login endpoint
-    : 'https://ecommerce-rest-api-miv1.onrender.com/signup' // Signup endpoint
+    ? 'https://ecommerce-rest-api-miv1.onrender.com/api/users/login'  // Login endpoint
+    : 'https://ecommerce-rest-api-miv1.onrender.com/api/users/signup' // Signup endpoint
 
   const payload = {
     email: formFields.value.find(f => f.id === 'email').value,
@@ -92,7 +92,7 @@ async function handleSubmit() {
     if (isLoginMode.value) {
       // Save token and redirect for login
       localStorage.setItem('authToken', data.token)
-      router.push('/dashboard') // Redirect to dashboard or home
+      router.push('/home') // Redirect to dashboard or home
     } else {
       // Handle successful registration
       alert('Registration successful! Please login.')

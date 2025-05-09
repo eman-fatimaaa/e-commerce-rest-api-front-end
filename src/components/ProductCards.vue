@@ -10,24 +10,21 @@ defineProps({
 <template>
   <div class="product-card">
     <div class="product-image-container">
-      <img 
-        :src="product.image || 'https://via.placeholder.com/300x200?text=No+Image'" 
-        :alt="product.title"
-        class="product-image"
-      >
+      <img :src="product.image || 'https://placehold.co/300x200?text=No+Image'" :alt="product.title"
+        class="product-image" />
       <div v-if="product.discount" class="discount-badge">
         -{{ product.discount }}%
       </div>
     </div>
-    
+
     <div class="product-details">
       <div class="product-header">
         <h3 class="product-title">{{ product.title }}</h3>
         <p class="product-category" v-if="product.category">{{ product.category }}</p>
       </div>
-      
+
       <p class="product-description">{{ product.description }}</p>
-      
+
       <div class="product-footer">
         <div class="price-container">
           <span class="current-price">${{ product.price.toFixed(2) }}</span>
@@ -35,15 +32,16 @@ defineProps({
             ${{ product.originalPrice.toFixed(2) }}
           </span>
         </div>
-        
+
         <div class="rating-container" v-if="product.rating">
           <span class="stars">★★★★★</span>
           <span class="rating-value">{{ product.rating.toFixed(1) }}</span>
         </div>
       </div>
-      
+
       <button class="add-to-cart-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="9" cy="21" r="1"></circle>
           <circle cx="20" cy="21" r="1"></circle>
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
@@ -73,7 +71,8 @@ defineProps({
 
 .product-image-container {
   position: relative;
-  padding-top: 70%; /* 4:3 aspect ratio */
+  padding-top: 70%;
+  /* 4:3 aspect ratio */
   overflow: hidden;
 }
 
@@ -216,11 +215,11 @@ defineProps({
   .product-title {
     font-size: 1rem;
   }
-  
+
   .current-price {
     font-size: 1.1rem;
   }
-  
+
   .add-to-cart-button {
     padding: 0.6rem;
     font-size: 0.875rem;

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const title = ref('')
+const name = ref('')
 const description = ref('')
 const price = ref('')
 const imageUrl = ref('')
@@ -11,7 +11,7 @@ const isLoading = ref(false)
 const router = useRouter()
 
 async function handleCreate() {
-  const token = localStorage.getItem('token')
+  const token = localStorage.getItem('authToken')
   if (!token) {
     alert('You must be logged in')
     router.push('/auth')
@@ -21,14 +21,14 @@ async function handleCreate() {
   isLoading.value = true
   
   try {
-    const res = await fetch('https://ecommerce-rest-api-miv1.onrender.com/createProduct', {
+    const res = await fetch('https://ecommerce-rest-api-miv1.onrender.com/api/products/createProduct', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({ 
-        title: title.value, 
+        name: name.value, 
         description: description.value, 
         price: parseFloat(price.value),
         imageUrl: imageUrl.value,
@@ -60,10 +60,10 @@ async function handleCreate() {
         <div class="form-group">
           <label for="title">Product Title</label>
           <input
-            id="title"
-            v-model="title"
+            id="name"
+            v-model="name"
             type="text"
-            placeholder="Enter product title"
+            placeholder="Enter product name"
             required
             class="form-input"
           >

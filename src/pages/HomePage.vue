@@ -7,12 +7,25 @@ const isLoading = ref(true)
 const error = ref(null)
 
 async function fetchProducts() {
+  isLoading.value = true
+  error.value = null
+
   try {
-    const res = await fetch('https://your-backend.onrender.com/products')
+    const token = localStorage.getItem('authToken')
+
+    const res = await fetch('https://ecommerce-rest-api-miv1.onrender.com/api/products/getProducts', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+
     if (res.ok) {
       products.value = await res.json()
     } else {
-      error.value = 'Failed to fetch products'
+      const data = await res.json()
+      error.value = data.message || 'Failed to fetch products'
     }
   } catch (err) {
     error.value = 'Network error occurred'
@@ -20,6 +33,7 @@ async function fetchProducts() {
     isLoading.value = false
   }
 }
+
 
 onMounted(() => {
   fetchProducts()
@@ -31,7 +45,17 @@ onMounted(() => {
     <div class="page-header">
       <h1 class="page-title">Our Products</h1>
       <router-link to="/create" class="create-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
         </svg>
@@ -50,23 +74,33 @@ onMounted(() => {
     </div>
 
     <div v-else-if="products.length" class="products-grid">
-      <ProductCard 
-        v-for="product in products" 
-        :key="product.id" 
-        :product="product" 
+      <ProductCards
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
         class="product-card"
       />
     </div>
 
     <div v-else class="empty-state">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <circle cx="12" cy="12" r="10"></circle>
         <line x1="12" y1="8" x2="12" y2="12"></line>
         <line x1="12" y1="16" x2="12.01" y2="16"></line>
       </svg>
       <h3>No products available</h3>
       <p>Add your first product to get started</p>
-      <router-link to="/create" class="create-button">Create Product</router-link>
+      
     </div>
   </div>
 </template>
